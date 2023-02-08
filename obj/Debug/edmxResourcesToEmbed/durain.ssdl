@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DurainModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="customer_id" />
+    </Key>
+    <Property Name="customer_id" Type="char" MaxLength="4" Nullable="false" />
+    <Property Name="customer_name" Type="varchar" MaxLength="50" />
+    <Property Name="customer_phone" Type="varchar" MaxLength="10" />
+    <Property Name="region" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="employee_id" />
+    </Key>
+    <Property Name="employee_id" Type="char" MaxLength="4" Nullable="false" />
+    <Property Name="employee_name" Type="varchar" MaxLength="50" />
+    <Property Name="employee_phone" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Export">
+    <Key>
+      <PropertyRef Name="exp_id" />
+    </Key>
+    <Property Name="exp_id" Type="char" MaxLength="4" Nullable="false" />
+    <Property Name="customer_id" Type="char" MaxLength="4" />
+    <Property Name="durian_id" Type="char" MaxLength="4" />
+    <Property Name="employee_id" Type="char" MaxLength="4" />
+    <Property Name="order_date" Type="date" />
+    <Property Name="shipped_date" Type="date" />
+    <Property Name="region" Type="varchar" MaxLength="50" />
+    <Property Name="price" Type="money" />
+  </EntityType>
+  <EntityType Name="Garden">
+    <Key>
+      <PropertyRef Name="garden_id" />
+    </Key>
+    <Property Name="garden_id" Type="char" MaxLength="4" Nullable="false" />
+    <Property Name="garden_name" Type="varchar" MaxLength="50" />
+    <Property Name="garden_phone" Type="varchar" MaxLength="10" />
+    <Property Name="garden_address" Type="varchar" MaxLength="50" />
+    <Property Name="garden_region" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Grade">
+    <Key>
+      <PropertyRef Name="durian_id" />
+    </Key>
+    <Property Name="durian_id" Type="char" MaxLength="4" Nullable="false" />
+    <Property Name="grade" Type="varchar" MaxLength="50" />
+    <Property Name="weight" Type="float" />
+    <Property Name="price" Type="money" />
+  </EntityType>
+  <EntityType Name="Import">
+    <Key>
+      <PropertyRef Name="import_id" />
+    </Key>
+    <Property Name="import_id" Type="char" MaxLength="4" Nullable="false" />
+    <Property Name="durian_id" Type="char" MaxLength="4" Nullable="false" />
+    <Property Name="garden_id" Type="char" MaxLength="4" />
+    <Property Name="employee_id" Type="char" MaxLength="4" />
+    <Property Name="import_date" Type="date" />
+    <Property Name="import_time" Type="time" Precision="7" />
+    <Property Name="grade" Type="varchar" MaxLength="50" />
+    <Property Name="weight" Type="float" />
+    <Property Name="price" Type="money" />
+  </EntityType>
+  <EntityType Name="Owner">
+    <Key>
+      <PropertyRef Name="owner_id" />
+    </Key>
+    <Property Name="owner_id" Type="char" MaxLength="4" Nullable="false" />
+    <Property Name="owner_name" Type="varchar" MaxLength="50" />
+    <Property Name="owner_phone" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Userpass">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+    <Property Name="Role" Type="varchar" MaxLength="50" />
+    <Property Name="owner_id" Type="char" MaxLength="4" />
+    <Property Name="employee_id" Type="char" MaxLength="4" />
+  </EntityType>
+  <Association Name="FK_Export_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Export" Type="Self.Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="customer_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_Durain">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="0..1" />
+    <End Role="Export" Type="Self.Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Export" Type="Self.Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_Durain">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_Garden">
+    <End Role="Garden" Type="Self.Garden" Multiplicity="0..1" />
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Garden">
+        <PropertyRef Name="garden_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="garden_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Userpass_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Userpass" Type="Self.Userpass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="Userpass">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Userpass_Owner">
+    <End Role="Owner" Type="Self.Owner" Multiplicity="0..1" />
+    <End Role="Userpass" Type="Self.Userpass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Owner">
+        <PropertyRef Name="owner_id" />
+      </Principal>
+      <Dependent Role="Userpass">
+        <PropertyRef Name="owner_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DurainModel1StoreContainer">
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Export" EntityType="Self.Export" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Garden" EntityType="Self.Garden" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Grade" EntityType="Self.Grade" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Import" EntityType="Self.Import" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Owner" EntityType="Self.Owner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Userpass" EntityType="Self.Userpass" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Export_Customer" Association="Self.FK_Export_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_Durain" Association="Self.FK_Export_Durain">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_Employees" Association="Self.FK_Export_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_Durain" Association="Self.FK_Import_Durain">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_Employees" Association="Self.FK_Import_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_Garden" Association="Self.FK_Import_Garden">
+      <End Role="Garden" EntitySet="Garden" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Userpass_Employees" Association="Self.FK_Userpass_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Userpass" EntitySet="Userpass" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Userpass_Owner" Association="Self.FK_Userpass_Owner">
+      <End Role="Owner" EntitySet="Owner" />
+      <End Role="Userpass" EntitySet="Userpass" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

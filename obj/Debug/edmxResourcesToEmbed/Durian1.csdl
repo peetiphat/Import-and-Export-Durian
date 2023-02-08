@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="company_id" />
+    </Key>
+    <Property Name="company_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="company_phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Export" Relationship="Model.FK_Export_Company" FromRole="Company" ToRole="Export" />
+  </EntityType>
+  <EntityType Name="Garden">
+    <Key>
+      <PropertyRef Name="garden_id" />
+    </Key>
+    <Property Name="garden_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="garden_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="garden_phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="garden_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="garden_region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Import" Relationship="Self.FK_Import_Garden" FromRole="Garden" ToRole="Import" />
+  </EntityType>
+  <EntityType Name="Grade">
+    <Key>
+      <PropertyRef Name="grade_id" />
+    </Key>
+    <Property Name="grade_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="grade1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="weight" Type="Double" />
+    <Property Name="price_import" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="price_export" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Export" Relationship="Model.FK_Export_Grade" FromRole="Grade" ToRole="Export" />
+    <NavigationProperty Name="Import" Relationship="Model.FK_Import_Grade" FromRole="Grade" ToRole="Import" />
+  </EntityType>
+  <EntityType Name="Import">
+    <Key>
+      <PropertyRef Name="import_id" />
+    </Key>
+    <Property Name="import_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="garden_id" Type="Int32" />
+    <Property Name="garden_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="weight" Type="Double" />
+    <Property Name="import_date" Type="DateTime" Precision="0" />
+    <Property Name="import_region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="totalPrice" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Garden" Relationship="Self.FK_Import_Garden" FromRole="Import" ToRole="Garden" />
+    <NavigationProperty Name="StockDurian" Relationship="Self.FK_Import_StockDurain" FromRole="Import" ToRole="StockDurian" />
+    <Property Name="durian_id" Type="Int32" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="grade_id" Type="Int32" />
+    <NavigationProperty Name="Grade1" Relationship="Model.FK_Import_Grade" FromRole="Import" ToRole="Grade" />
+    <NavigationProperty Name="User" Relationship="Model.FK_Import_User" FromRole="Import" ToRole="User" />
+  </EntityType>
+  <EntityType Name="StockDurian">
+    <Key>
+      <PropertyRef Name="durian_id" />
+    </Key>
+    <Property Name="durian_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="weight" Type="Double" />
+    <NavigationProperty Name="Import" Relationship="Self.FK_Import_StockDurain" FromRole="StockDurian" ToRole="Import" />
+    <Property Name="grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Export" Relationship="Model.FK_Export_StockDurian" FromRole="StockDurian" ToRole="Export" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="user_lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="user_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="user_telephone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Export" Relationship="Model.FK_Export_User" FromRole="User" ToRole="Export" />
+    <NavigationProperty Name="Import" Relationship="Model.FK_Import_User" FromRole="User" ToRole="Import" />
+  </EntityType>
+  <Association Name="FK_Import_Garden">
+    <End Role="Garden" Type="Self.Garden" Multiplicity="0..1" />
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Garden">
+        <PropertyRef Name="garden_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="garden_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_StockDurain">
+    <End Role="StockDurian" Type="Self.StockDurian" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockDurian">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Store_DurianEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Company" EntityType="Self.Company" />
+    <EntitySet Name="Garden" EntityType="Self.Garden" />
+    <EntitySet Name="Grade" EntityType="Self.Grade" />
+    <EntitySet Name="Import" EntityType="Self.Import" />
+    <EntitySet Name="StockDurian" EntityType="Self.StockDurian" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_Import_Garden" Association="Self.FK_Import_Garden">
+      <End Role="Garden" EntitySet="Garden" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_StockDurain" Association="Self.FK_Import_StockDurain">
+      <End Role="StockDurian" EntitySet="StockDurian" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_StockDurian" Association="Model.FK_Import_StockDurian">
+      <End Role="StockDurian" EntitySet="StockDurian" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <EntitySet Name="Export" EntityType="Model.Export" />
+    <AssociationSet Name="FK_Export_Company" Association="Model.FK_Export_Company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_StockDurian" Association="Model.FK_Export_StockDurian">
+      <End Role="StockDurian" EntitySet="StockDurian" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_Grade" Association="Model.FK_Export_Grade">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_User" Association="Model.FK_Export_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_Grade" Association="Model.FK_Import_Grade">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_User" Association="Model.FK_Import_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Import_StockDurian">
+    <End Type="Model.StockDurian" Role="StockDurian" Multiplicity="0..1" />
+    <End Type="Model.Import" Role="Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockDurian">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Export">
+    <Key>
+      <PropertyRef Name="export_id" />
+    </Key>
+    <Property Name="export_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="durian_id" Type="Int32" />
+    <Property Name="company_id" Type="Int32" />
+    <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="weight" Type="Double" />
+    <Property Name="export_date" Type="DateTime" Precision="0" />
+    <Property Name="export_region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="totalPrice" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Company" Relationship="Model.FK_Export_Company" FromRole="Export" ToRole="Company" />
+    <NavigationProperty Name="StockDurian" Relationship="Model.FK_Export_StockDurian" FromRole="Export" ToRole="StockDurian" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="grade_id" Type="Int32" />
+    <NavigationProperty Name="Grade1" Relationship="Model.FK_Export_Grade" FromRole="Export" ToRole="Grade" />
+    <NavigationProperty Name="User" Relationship="Model.FK_Export_User" FromRole="Export" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_Export_Company">
+    <End Type="Model.Company" Role="Company" Multiplicity="0..1" />
+    <End Type="Model.Export" Role="Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="company_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="company_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_StockDurian">
+    <End Type="Model.StockDurian" Role="StockDurian" Multiplicity="0..1" />
+    <End Type="Model.Export" Role="Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockDurian">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_Grade">
+    <End Type="Model.Grade" Role="Grade" Multiplicity="0..1" />
+    <End Type="Model.Export" Role="Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="grade_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="grade_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_User">
+    <End Type="Model.User" Role="User" Multiplicity="0..1" />
+    <End Type="Model.Export" Role="Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_Grade">
+    <End Type="Model.Grade" Role="Grade" Multiplicity="0..1" />
+    <End Type="Model.Import" Role="Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="grade_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="grade_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_User">
+    <End Type="Model.User" Role="User" Multiplicity="0..1" />
+    <End Type="Model.Import" Role="Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

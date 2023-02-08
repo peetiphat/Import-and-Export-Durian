@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DurainModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="customer_id" />
+    </Key>
+    <Property Name="customer_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="customer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="customer_phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Export" Relationship="Self.FK_Export_Customer" FromRole="Customer" ToRole="Export" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="employee_id" />
+    </Key>
+    <Property Name="employee_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="employee_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="employee_phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Export" Relationship="Self.FK_Export_Employees" FromRole="Employees" ToRole="Export" />
+    <NavigationProperty Name="Import" Relationship="Self.FK_Import_Employees" FromRole="Employees" ToRole="Import" />
+    <NavigationProperty Name="Userpass" Relationship="Self.FK_Userpass_Employees" FromRole="Employees" ToRole="Userpass" />
+  </EntityType>
+  <EntityType Name="Export">
+    <Key>
+      <PropertyRef Name="exp_id" />
+    </Key>
+    <Property Name="exp_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="customer_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="durian_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="employee_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="order_date" Type="DateTime" Precision="0" />
+    <Property Name="shipped_date" Type="DateTime" Precision="0" />
+    <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Export_Customer" FromRole="Export" ToRole="Customer" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Export_Employees" FromRole="Export" ToRole="Employees" />
+    <NavigationProperty Name="Grade" Relationship="Self.FK_Export_Durain" FromRole="Export" ToRole="Grade" />
+  </EntityType>
+  <EntityType Name="Garden">
+    <Key>
+      <PropertyRef Name="garden_id" />
+    </Key>
+    <Property Name="garden_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="garden_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="garden_phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="garden_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="garden_region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Import" Relationship="Self.FK_Import_Garden" FromRole="Garden" ToRole="Import" />
+  </EntityType>
+  <EntityType Name="Grade">
+    <Key>
+      <PropertyRef Name="durian_id" />
+    </Key>
+    <Property Name="durian_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="grade1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="weight" Type="Double" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Export" Relationship="Self.FK_Export_Durain" FromRole="Grade" ToRole="Export" />
+    <NavigationProperty Name="Import" Relationship="Self.FK_Import_Durain" FromRole="Grade" ToRole="Import" />
+  </EntityType>
+  <EntityType Name="Import">
+    <Key>
+      <PropertyRef Name="import_id" />
+    </Key>
+    <Property Name="import_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="durian_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="garden_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="employee_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="import_date" Type="DateTime" Precision="0" />
+    <Property Name="import_time" Type="Time" Precision="7" />
+    <Property Name="grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="weight" Type="Double" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Import_Employees" FromRole="Import" ToRole="Employees" />
+    <NavigationProperty Name="Garden" Relationship="Self.FK_Import_Garden" FromRole="Import" ToRole="Garden" />
+    <NavigationProperty Name="Grade1" Relationship="Self.FK_Import_Durain" FromRole="Import" ToRole="Grade" />
+  </EntityType>
+  <EntityType Name="Owner">
+    <Key>
+      <PropertyRef Name="owner_id" />
+    </Key>
+    <Property Name="owner_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="owner_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="owner_phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Userpass" Relationship="Self.FK_Userpass_Owner" FromRole="Owner" ToRole="Userpass" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Userpass">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="owner_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="employee_id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Userpass_Employees" FromRole="Userpass" ToRole="Employees" />
+    <NavigationProperty Name="Owner" Relationship="Self.FK_Userpass_Owner" FromRole="Userpass" ToRole="Owner" />
+  </EntityType>
+  <Association Name="FK_Export_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Export" Type="Self.Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="customer_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Export" Type="Self.Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Userpass_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Userpass" Type="Self.Userpass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="Userpass">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_Durain">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="0..1" />
+    <End Role="Export" Type="Self.Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_Garden">
+    <End Role="Garden" Type="Self.Garden" Multiplicity="0..1" />
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Garden">
+        <PropertyRef Name="garden_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="garden_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_Durain">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Userpass_Owner">
+    <End Role="Owner" Type="Self.Owner" Multiplicity="0..1" />
+    <End Role="Userpass" Type="Self.Userpass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Owner">
+        <PropertyRef Name="owner_id" />
+      </Principal>
+      <Dependent Role="Userpass">
+        <PropertyRef Name="owner_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DurainEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customer" EntityType="Self.Customer" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" />
+    <EntitySet Name="Export" EntityType="Self.Export" />
+    <EntitySet Name="Garden" EntityType="Self.Garden" />
+    <EntitySet Name="Grade" EntityType="Self.Grade" />
+    <EntitySet Name="Import" EntityType="Self.Import" />
+    <EntitySet Name="Owner" EntityType="Self.Owner" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Userpass" EntityType="Self.Userpass" />
+    <AssociationSet Name="FK_Export_Customer" Association="Self.FK_Export_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_Employees" Association="Self.FK_Export_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_Employees" Association="Self.FK_Import_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Userpass_Employees" Association="Self.FK_Userpass_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Userpass" EntitySet="Userpass" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_Durain" Association="Self.FK_Export_Durain">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_Garden" Association="Self.FK_Import_Garden">
+      <End Role="Garden" EntitySet="Garden" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_Durain" Association="Self.FK_Import_Durain">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Userpass_Owner" Association="Self.FK_Userpass_Owner">
+      <End Role="Owner" EntitySet="Owner" />
+      <End Role="Userpass" EntitySet="Userpass" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

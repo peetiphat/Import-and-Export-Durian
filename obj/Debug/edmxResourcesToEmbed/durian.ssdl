@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="company_id" />
+    </Key>
+    <Property Name="company_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="company_name" Type="varchar" MaxLength="50" />
+    <Property Name="company_phone" Type="varchar" MaxLength="10" />
+    <Property Name="region" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Export">
+    <Key>
+      <PropertyRef Name="export_id" />
+    </Key>
+    <Property Name="export_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="company_id" Type="int" />
+    <Property Name="grade_id" Type="int" />
+    <Property Name="durian_id" Type="int" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="company_name" Type="varchar" MaxLength="50" />
+    <Property Name="export_date" Type="date" />
+    <Property Name="export_time" Type="time" Precision="7" />
+    <Property Name="export_region" Type="varchar" MaxLength="50" />
+    <Property Name="weight" Type="float" />
+    <Property Name="price_export" Type="money" />
+    <Property Name="totalPrice" Type="money" />
+  </EntityType>
+  <EntityType Name="Export Detail">
+    <Key>
+      <PropertyRef Name="export_id" />
+      <PropertyRef Name="durian_id" />
+      <PropertyRef Name="grade_id" />
+    </Key>
+    <Property Name="export_id" Type="int" Nullable="false" />
+    <Property Name="durian_id" Type="int" Nullable="false" />
+    <Property Name="grade_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Garden">
+    <Key>
+      <PropertyRef Name="garden_id" />
+    </Key>
+    <Property Name="garden_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="garden_name" Type="varchar" MaxLength="50" />
+    <Property Name="garden_phone" Type="varchar" MaxLength="10" />
+    <Property Name="garden_address" Type="varchar" MaxLength="50" />
+    <Property Name="garden_region" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Grade">
+    <Key>
+      <PropertyRef Name="grade_id" />
+    </Key>
+    <Property Name="grade_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="grade" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="weight" Type="float" />
+    <Property Name="price_import" Type="money" />
+    <Property Name="price_export" Type="money" />
+  </EntityType>
+  <EntityType Name="Import">
+    <Key>
+      <PropertyRef Name="import_id" />
+    </Key>
+    <Property Name="import_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="durian_id" Type="int" />
+    <Property Name="grade_id" Type="int" />
+    <Property Name="garden_id" Type="int" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="garden_name" Type="varchar" MaxLength="50" />
+    <Property Name="weight" Type="float" />
+    <Property Name="price_import" Type="money" />
+    <Property Name="import_date" Type="date" />
+    <Property Name="import_time" Type="time" Precision="7" />
+    <Property Name="import_region" Type="varchar" MaxLength="50" />
+    <Property Name="grade" Type="varchar" MaxLength="50" />
+    <Property Name="totalPrice" Type="money" />
+  </EntityType>
+  <EntityType Name="Import Detail">
+    <Key>
+      <PropertyRef Name="import_id" />
+      <PropertyRef Name="durian_id" />
+      <PropertyRef Name="grade_id" />
+    </Key>
+    <Property Name="import_id" Type="int" Nullable="false" />
+    <Property Name="durian_id" Type="int" Nullable="false" />
+    <Property Name="grade_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StockDurian">
+    <Key>
+      <PropertyRef Name="durian_id" />
+    </Key>
+    <Property Name="durian_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="grade_id" Type="int" />
+    <Property Name="weight" Type="float" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_firstname" Type="varchar" MaxLength="50" />
+    <Property Name="user_lastname" Type="varchar" MaxLength="50" />
+    <Property Name="user_address" Type="varchar" MaxLength="50" />
+    <Property Name="user_telephone" Type="varchar" MaxLength="12" />
+    <Property Name="gender" Type="varchar" MaxLength="50" />
+    <Property Name="Username" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+    <Property Name="Role" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Export Detail_Export">
+    <End Role="Export" Type="Self.Export" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Export Detail" Type="Self.Export Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Export">
+        <PropertyRef Name="export_id" />
+      </Principal>
+      <Dependent Role="Export Detail">
+        <PropertyRef Name="export_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export Detail_Grade">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+    <End Role="Export Detail" Type="Self.Export Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="grade_id" />
+      </Principal>
+      <Dependent Role="Export Detail">
+        <PropertyRef Name="grade_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export Detail_StockDurain">
+    <End Role="StockDurian" Type="Self.StockDurian" Multiplicity="1" />
+    <End Role="Export Detail" Type="Self.Export Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockDurian">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Export Detail">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="Export" Type="Self.Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="company_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="company_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_Grade1">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="0..1" />
+    <End Role="Export" Type="Self.Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="grade_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="grade_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_StockDurain1">
+    <End Role="StockDurian" Type="Self.StockDurian" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Export" Type="Self.Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockDurian">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Export_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Export" Type="Self.Export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="Export">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import Detail_Grade">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+    <End Role="Import Detail" Type="Self.Import Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="grade_id" />
+      </Principal>
+      <Dependent Role="Import Detail">
+        <PropertyRef Name="grade_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import Detail_Import">
+    <End Role="Import" Type="Self.Import" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Import Detail" Type="Self.Import Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Import">
+        <PropertyRef Name="import_id" />
+      </Principal>
+      <Dependent Role="Import Detail">
+        <PropertyRef Name="import_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import Detail_StockDurain">
+    <End Role="StockDurian" Type="Self.StockDurian" Multiplicity="1" />
+    <End Role="Import Detail" Type="Self.Import Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockDurian">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Import Detail">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_Garden">
+    <End Role="Garden" Type="Self.Garden" Multiplicity="0..1" />
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Garden">
+        <PropertyRef Name="garden_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="garden_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_Grade1">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="0..1" />
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="grade_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="grade_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_StockDurain">
+    <End Role="StockDurian" Type="Self.StockDurian" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockDurian">
+        <PropertyRef Name="durian_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="durian_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Import_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Import" Type="Self.Import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="Import">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StockDurain_Grade1">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="0..1" />
+    <End Role="StockDurian" Type="Self.StockDurian" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="grade_id" />
+      </Principal>
+      <Dependent Role="StockDurian">
+        <PropertyRef Name="grade_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Export" EntityType="Self.Export" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Export Detail" EntityType="Self.Export Detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Garden" EntityType="Self.Garden" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Grade" EntityType="Self.Grade" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Import" EntityType="Self.Import" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Import Detail" EntityType="Self.Import Detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockDurian" EntityType="Self.StockDurian" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Export Detail_Export" Association="Self.FK_Export Detail_Export">
+      <End Role="Export" EntitySet="Export" />
+      <End Role="Export Detail" EntitySet="Export Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export Detail_Grade" Association="Self.FK_Export Detail_Grade">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="Export Detail" EntitySet="Export Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export Detail_StockDurain" Association="Self.FK_Export Detail_StockDurain">
+      <End Role="StockDurian" EntitySet="StockDurian" />
+      <End Role="Export Detail" EntitySet="Export Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_Company" Association="Self.FK_Export_Company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_Grade1" Association="Self.FK_Export_Grade1">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_StockDurain1" Association="Self.FK_Export_StockDurain1">
+      <End Role="StockDurian" EntitySet="StockDurian" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Export_User" Association="Self.FK_Export_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Export" EntitySet="Export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import Detail_Grade" Association="Self.FK_Import Detail_Grade">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="Import Detail" EntitySet="Import Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import Detail_Import" Association="Self.FK_Import Detail_Import">
+      <End Role="Import" EntitySet="Import" />
+      <End Role="Import Detail" EntitySet="Import Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import Detail_StockDurain" Association="Self.FK_Import Detail_StockDurain">
+      <End Role="StockDurian" EntitySet="StockDurian" />
+      <End Role="Import Detail" EntitySet="Import Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_Garden" Association="Self.FK_Import_Garden">
+      <End Role="Garden" EntitySet="Garden" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_Grade1" Association="Self.FK_Import_Grade1">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_StockDurain" Association="Self.FK_Import_StockDurain">
+      <End Role="StockDurian" EntitySet="StockDurian" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Import_User" Association="Self.FK_Import_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Import" EntitySet="Import" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StockDurain_Grade1" Association="Self.FK_StockDurain_Grade1">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="StockDurian" EntitySet="StockDurian" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Store_DurainEntities">
+    <EntitySetMapping Name="Company">
+      <EntityTypeMapping TypeName="Model.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="company_id" ColumnName="company_id" />
+          <ScalarProperty Name="company_name" ColumnName="company_name" />
+          <ScalarProperty Name="company_phone" ColumnName="company_phone" />
+          <ScalarProperty Name="region" ColumnName="region" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Export">
+      <EntityTypeMapping TypeName="Model.Export">
+        <MappingFragment StoreEntitySet="Export">
+          <ScalarProperty Name="export_id" ColumnName="export_id" />
+          <ScalarProperty Name="company_id" ColumnName="company_id" />
+          <ScalarProperty Name="grade_id" ColumnName="grade_id" />
+          <ScalarProperty Name="durian_id" ColumnName="durian_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="export_date" ColumnName="export_date" />
+          <ScalarProperty Name="export_time" ColumnName="export_time" />
+          <ScalarProperty Name="export_region" ColumnName="export_region" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Export_Detail">
+      <EntityTypeMapping TypeName="Model.Export_Detail">
+        <MappingFragment StoreEntitySet="Export Detail">
+          <ScalarProperty Name="export_id" ColumnName="export_id" />
+          <ScalarProperty Name="durain_id" ColumnName="durain_id" />
+          <ScalarProperty Name="grade_id" ColumnName="grade_id" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Garden">
+      <EntityTypeMapping TypeName="Model.Garden">
+        <MappingFragment StoreEntitySet="Garden">
+          <ScalarProperty Name="garden_id" ColumnName="garden_id" />
+          <ScalarProperty Name="garden_name" ColumnName="garden_name" />
+          <ScalarProperty Name="garden_phone" ColumnName="garden_phone" />
+          <ScalarProperty Name="garden_address" ColumnName="garden_address" />
+          <ScalarProperty Name="garden_region" ColumnName="garden_region" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grade">
+      <EntityTypeMapping TypeName="Model.Grade">
+        <MappingFragment StoreEntitySet="Grade">
+          <ScalarProperty Name="grade_id" ColumnName="grade_id" />
+          <ScalarProperty Name="grade1" ColumnName="grade" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Import">
+      <EntityTypeMapping TypeName="Model.Import">
+        <MappingFragment StoreEntitySet="Import">
+          <ScalarProperty Name="import_id" ColumnName="import_id" />
+          <ScalarProperty Name="durian_id" ColumnName="durian_id" />
+          <ScalarProperty Name="grade_id" ColumnName="grade_id" />
+          <ScalarProperty Name="garden_id" ColumnName="garden_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="import_date" ColumnName="import_date" />
+          <ScalarProperty Name="import_time" ColumnName="import_time" />
+          <ScalarProperty Name="import_region" ColumnName="import_region" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Import_Detail">
+      <EntityTypeMapping TypeName="Model.Import_Detail">
+        <MappingFragment StoreEntitySet="Import Detail">
+          <ScalarProperty Name="import_id" ColumnName="import_id" />
+          <ScalarProperty Name="durain_id" ColumnName="durain_id" />
+          <ScalarProperty Name="grade_id" ColumnName="grade_id" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StockDurain">
+      <EntityTypeMapping TypeName="Model.StockDurain">
+        <MappingFragment StoreEntitySet="StockDurain">
+          <ScalarProperty Name="durain_id" ColumnName="durain_id" />
+          <ScalarProperty Name="import_id" ColumnName="import_id" />
+          <ScalarProperty Name="export_id" ColumnName="export_id" />
+          <ScalarProperty Name="grade_id" ColumnName="grade_id" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Model.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="Model.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="user_firstname" ColumnName="user_firstname" />
+          <ScalarProperty Name="user_lastname" ColumnName="user_lastname" />
+          <ScalarProperty Name="user_address" ColumnName="user_address" />
+          <ScalarProperty Name="user_telephone" ColumnName="user_telephone" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Model.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Model.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Model.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Model.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Model.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Model.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Model.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>
